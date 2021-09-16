@@ -1,0 +1,132 @@
+<template>
+  <!-- Page Content -->
+  <div class="container">
+    <main
+      class="col-12 col-md-9 col-xl-12 py-md-3 pl-md-5 bd-content"
+      role="main"
+    >
+      <div class="container px-5 my-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card border-0 rounded-3 shadow-lg">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <div class="h1 fw-light">Transfer</div>
+                  <p class="mb-4 text-muted">
+                    Transfer ETH from one wallet to another.
+                  </p>
+                </div>
+
+                <form id="form" submit.delegate="transfer($event)">
+                  <!-- Name Input -->
+                  <div class="form-floating mb-3">
+                    <select
+                      class="form-select"
+                      id="sender"
+                      data-sb-validations="required"
+                      value.two-way="sender"
+                    >
+                      <option
+                        repeat.for="wallet of senderList"
+                        value="${wallet.address}"
+                      >
+                        ${wallet.name} - ${wallet.address}
+                      </option>
+                    </select>
+                    <label for="sender">Sender Wallet</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="sender:required"
+                    >
+                      Sender is required.
+                    </div>
+                  </div>
+
+                  <!-- Address Input -->
+                  <div class="form-floating mb-3">
+                    <select
+                      class="form-select"
+                      id="receiver"
+                      data-sb-validations="required"
+                      value.two-way="receiver"
+                    >
+                      <option
+                        repeat.for="wallet of recieverList"
+                        value="${wallet.address}"
+                      >
+                        ${wallet.name} - ${wallet.address}
+                      </option>
+                    </select>
+                    <label for="receiver">receiver Wallet</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="receiver:required"
+                    >
+                      receiver is required.
+                    </div>
+                  </div>
+
+                  <!-- Balance Input -->
+                  <div class="form-floating mb-3">
+                    <input
+                      class="form-control"
+                      id="balance"
+                      type="number"
+                      min="0"
+                      step="0.1"
+                      placeholder="Price"
+                      data-sb-validations="required"
+                      value.two-way="price"
+                    />
+                    <label for="price">Price</label>
+                    <div
+                      class="invalid-feedback"
+                      data-sb-feedback="price:required"
+                    >
+                      Price is required.
+                    </div>
+                  </div>
+
+                  <!-- Submit success message -->
+                  <div
+                    class="${ success ? '' : 'd-none'}"
+                    id="submitSuccessMessage"
+                  >
+                    <div class="text-center mb-3">
+                      <div class="fw-bolder text-success">
+                        Wallet created successfully!
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Submit error message -->
+                  <div
+                    class="${ error ? '' : 'd-none'}"
+                    id="submitErrorMessage"
+                  >
+                    <div class="text-center text-danger mb-3">
+                      Error creating wallet!
+                    </div>
+                  </div>
+
+                  <!-- Submit button -->
+                  <div class="d-grid">
+                    <button
+                      class="btn btn-primary btn-lg"
+                      id="submitButton"
+                      type="submit"
+                      ref="btn" click.delegate="onClick(btn)"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+                <!-- End of contact form -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</template>
